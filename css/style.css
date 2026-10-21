@@ -1,0 +1,130 @@
+@font-face{font-family:Manrope;src:url('../assets/fonts/manrope-regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:Manrope;src:url('../assets/fonts/manrope-semibold.ttf') format('truetype');font-style:normal;font-weight:600 800;font-display:swap}
+:root{--bg:#101010;--surface:#181818;--text:#f5f5f0;--muted:#b7b9b1;--yellow:#fff000;--line:#ffffff20;--radius:24px;--header:104px;--footer:58px;color-scheme:dark;font-family:Manrope,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{height:100%;overflow:hidden}body{margin:0;height:100dvh;overflow:hidden;background:var(--bg);color:var(--text);font-size:18px;line-height:1.7;-webkit-font-smoothing:antialiased}h1,h2,h3,p,ul{margin:0}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}button,a{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--yellow);outline-offset:5px}::selection{background:var(--yellow);color:#101010}strong{font-weight:600}.yellow{color:var(--yellow)}[hidden]{display:none!important}.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.skip-link{position:fixed;top:-100px;left:20px;z-index:100;background:var(--yellow);color:#111;padding:10px 18px;border-radius:8px}.skip-link:focus{top:12px}.progress-nav{display:none}
+/* The same glass treatment connects navigation and interactive controls. */
+.topbar{height:var(--header);padding:24px 5%;display:flex;align-items:center;justify-content:center;gap:28px;position:relative;z-index:20}
+.topbar nav,.nav-contact,.experience-switcher button,.skills-tabs button,.social-icons a,.section-control{position:relative;isolation:isolate;border:1px solid #c6deec45;background:linear-gradient(180deg,#ffffff15,#ffffff05 48%,#12161980);box-shadow:inset 0 1px 1px #ffffff50,inset 0 -1px 1px #a8dfff25,0 5px 18px #0002;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:border-color .2s,background .2s,box-shadow .2s}
+.topbar nav{display:flex;gap:6px;border-radius:999px;padding:9px 16px;box-shadow:inset 0 2px 2px #ffffff80,inset 0 -2px 3px #b7e9ff80,0 0 0 2px #8da9b21a,0 7px 20px #0004;max-width:100%;overflow-x:auto;scrollbar-width:none}
+.topbar nav::before{content:"";position:absolute;inset:2px;z-index:-1;border:1px solid transparent;border-radius:inherit;background:linear-gradient(115deg,#ffffffad,#f5c99055 28%,#80eaca38 50%,#9aa6ff77 78%,#e3faffaa) border-box;mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);mask-composite:exclude;-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;pointer-events:none}
+.topbar nav a{font-size:15px;white-space:nowrap;padding:10px 18px;border-radius:999px;color:#d4d7d1}.topbar nav a:hover{color:#fff;background:#ffffff0b}.topbar nav a[aria-current="location"]{color:var(--yellow);background:#fff0000c}.nav-contact{font-size:13px;border-radius:999px;padding:13px 20px;white-space:nowrap}.nav-contact span{color:var(--yellow);margin-left:20px}
+main{display:flex;position:relative;height:calc(100dvh - var(--header) - var(--footer));width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}main::-webkit-scrollbar{display:none}main>section{flex:0 0 100%;width:100%;height:100%;overflow-y:auto;overflow-x:hidden;padding:32px max(6%,calc((100vw - 1120px)/2)) 38px;overscroll-behavior-y:contain;scrollbar-width:thin;scrollbar-color:#ffffff32 transparent}.section-inner{width:100%;max-width:1120px;margin:auto}h2{font-size:clamp(34px,3.6vw,50px);font-weight:600;letter-spacing:-1.9px;line-height:1.15;margin-bottom:30px}h3{font-size:24px;line-height:1.3;letter-spacing:-.6px;font-weight:600}
+/* Introduction. Image and copy have independent grid areas. */
+#hero{display:flex;padding-top:15px;padding-bottom:24px}#hero .section-inner{align-self:safe center;display:grid;grid-template-columns:minmax(0,1fr) 220px;column-gap:44px;border:1px solid #ffffff25;border-radius:28px;padding:34px 40px;background:linear-gradient(125deg,#ffffff07,#ffffff02);box-shadow:inset 0 1px 0 #ffffff0c}#hero .section-inner>*{min-width:0;grid-column:1}.hero-portrait{grid-column:2!important;grid-row:1 / 3;width:200px;height:230px;justify-self:end;object-fit:cover;object-position:50% 0%;object-view-box:inset(0% 8% 12% 8%);border-radius:20px;border:1px solid #ffffff28}h1{font-size:clamp(52px,6vw,84px);font-weight:600;letter-spacing:-4.5px;line-height:1.02;margin-bottom:18px}h1 span{color:var(--yellow)}.role{font-size:clamp(23px,2.4vw,30px);font-weight:600;letter-spacing:-.8px;line-height:1.3;align-self:start}.role span{color:var(--yellow)}#hero .career-tagline{grid-column:1 / -1;color:var(--yellow);font-size:20px;line-height:1.5;margin:26px 0 18px}#hero .pitch{grid-column:1 / -1;color:var(--muted);font-size:19px;line-height:1.75;margin-bottom:26px;max-width:100%}.hero-details{grid-column:1 / -1!important;border-top:1px solid var(--line);padding-top:20px;display:flex;align-items:center;justify-content:space-between;gap:24px}.work-eligibility{display:flex;flex-wrap:wrap;gap:18px 30px;list-style:none;padding:0}.work-eligibility li{display:flex;flex-direction:column;gap:4px}.meta-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--yellow)}.meta-value{font-size:15px}.social-icons{display:flex;align-items:center;gap:10px;list-style:none;padding:0;flex-shrink:0}.social-icons a{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;color:var(--yellow)}.social-icons svg{width:22px;height:22px}.social-icons a:hover{border-color:#fff00080;background:#fff00012}
+/* Job and skill selectors. */
+.experience-switcher,.skills-tabs{display:flex;gap:12px;margin-bottom:24px}.experience-switcher button,.skills-tabs button{color:var(--muted);padding:14px 20px;border-radius:999px;font-size:15px;text-align:left;line-height:1.4}.experience-switcher button{flex:1}.experience-switcher button span{display:block;margin-top:7px;font-size:12px}.experience-switcher button[aria-selected="true"],.skills-tabs button[aria-selected="true"]{color:var(--text);border-color:var(--yellow);background:linear-gradient(180deg,#fff00012,#ffffff04);box-shadow:inset 0 1px 0 #fff7ab70,0 4px 14px #0002}.experience-switcher button:hover,.skills-tabs button:hover{border-color:#ffffff65;color:var(--text)}.skills-tabs{flex-wrap:wrap}.skills-tabs button{padding:12px 18px}
+#experience [role="tabpanel"]{padding:28px 32px;border:1px solid var(--line);border-radius:24px;background:#ffffff04}.timeline-dates{font-size:13px;color:var(--yellow);margin-bottom:12px}.position-status{display:none}#experience h3{font-size:29px;margin-bottom:12px}#experience h3 br{display:none}#experience h3 br::after{content:" "}.position-company,.support-company{display:inline-block;font-size:18px;border-bottom:1px solid #ffffff35;padding-bottom:2px;margin-bottom:12px}.support-company span{font-size:14px;color:var(--muted)}.position-summary{font-size:19px;line-height:1.65;margin:10px 0 16px;max-width:920px}.timeline-place{font-size:16px;color:var(--muted);margin:4px 0 16px}.timeline-place a{border-bottom:1px solid #ffffff40}.timeline-entry ul{font-size:18px;line-height:1.65;color:var(--muted);padding-left:20px;margin:12px 0}.timeline-entry li{padding:4px 0 4px 6px}.timeline-entry li::marker{color:var(--yellow);font-size:11px}.position-locations{display:grid;grid-template-columns:1fr 1fr;gap:24px;border-top:1px solid var(--line);padding-top:18px;margin-top:22px}.position-locations span{font-size:10px;letter-spacing:1px;color:var(--muted)}#job-panel-0 .position-locations span{color:var(--yellow)}.position-locations p{font-size:16px;margin-top:5px}.position-locations small{font-size:12px;color:var(--muted);margin-left:8px}
+.skill-panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.skill-tile{display:flex;flex-direction:column;min-height:260px;border:1px solid var(--line);border-radius:20px;padding:24px;background:#ffffff04}.skill-origin{display:block;color:var(--muted);font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}.skill-tile h3{font-size:23px;margin-bottom:12px}.tile-technologies{font-size:20px;line-height:1.6;color:var(--yellow);margin-bottom:12px}.tile-description{font-size:17px;line-height:1.65;color:var(--muted)}
+/* Qualifications, spoken languages and contact. */
+.plain-list{list-style:none;padding:0}#education .plain-list li{padding:24px 0;border-bottom:1px solid var(--line);font-size:18px;color:var(--muted)}#education .plain-list li:first-child{padding-top:0}#education strong{display:block;font-size:24px;line-height:1.4;color:var(--text);margin-bottom:10px;letter-spacing:-.5px}#languages .plain-list li{border-bottom:1px solid var(--line);padding:24px 0;font-size:22px}#languages .plain-list li:first-child{padding-top:0}#contact{display:flex;align-items:safe center;text-align:center}#contact h2{font-size:30px;max-width:900px;margin:0 auto 32px;line-height:1.18}#contact p>a{display:inline-block;color:var(--yellow);font-size:30px;letter-spacing:-1px;border-bottom:1px solid #fff00055;overflow-wrap:anywhere}#contact .social-icons{justify-content:center;margin-top:32px}
+body>footer{display:none}.section-navigation{height:var(--footer);display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 5%;border-top:1px solid #ffffff0c}.section-navigation p{color:var(--muted);font-size:11px;letter-spacing:.4px}.section-navigation .section-actions{display:flex;gap:10px}.section-control{color:var(--text);padding:6px 15px;font-size:12px;border-radius:999px;min-height:34px}.section-control:disabled{opacity:.3;cursor:default}.section-control:not(:disabled):hover{border-color:#fff00080;color:var(--yellow)}
+@media(min-width:901px) and (max-height:800px){:root{--header:86px;--footer:48px}.topbar{padding-top:16px;padding-bottom:16px}main>section{padding-top:20px;padding-bottom:24px}#hero .section-inner{padding:26px 32px;grid-template-columns:minmax(0,1fr) 180px;column-gap:30px}.hero-portrait{width:160px;height:185px}h1{font-size:64px;margin-bottom:14px}.role{font-size:26px}#hero .career-tagline{margin:18px 0 14px;font-size:19px}#hero .pitch{font-size:18px;line-height:1.6;margin-bottom:18px}.hero-details{padding-top:16px}.skill-tile{padding:20px}.tile-technologies{font-size:18px}.tile-description{font-size:16px}}
+@media(max-width:1100px){.nav-contact{display:none}.topbar nav a{padding:8px 12px}.hero-details{flex-wrap:wrap}.experience-switcher button{font-size:14px}}
+@media(max-width:900px){:root{--header:84px}html{height:auto;overflow:auto;scroll-behavior:smooth;scroll-padding-top:100px}body{height:auto;overflow:visible}.topbar{position:sticky;top:0;height:84px;padding:16px 5%;background:#101010eb;backdrop-filter:blur(18px)}.topbar nav{width:100%;justify-content:space-between;gap:2px}.topbar nav a{font-size:12px;padding:8px 11px}main{display:block;height:auto;overflow:visible}main>section{height:auto;min-height:0;overflow:visible;padding:44px 6%;border-bottom:1px solid var(--line);scroll-margin-top:0}#hero{padding:24px 5% 44px}#hero .section-inner{grid-template-columns:minmax(0,1fr) 135px;padding:28px;column-gap:20px}.hero-portrait{width:130px;height:150px}h1{font-size:clamp(42px,7vw,64px);letter-spacing:-2.8px}.role{font-size:24px}#hero .career-tagline{font-size:19px;margin:24px 0 18px}#hero .pitch{font-size:18px;line-height:1.75}.section-navigation{display:none}#experience [role="tabpanel"]{padding:25px}.experience-switcher{overflow-x:auto;padding-bottom:5px}.experience-switcher button{flex:0 0 180px}.skills-tabs{gap:9px}.skills-tabs button{font-size:14px;padding:11px 15px}.skill-panel{gap:16px}#languages .plain-list li{font-size:20px;padding:20px 0}#contact{padding-top:70px;padding-bottom:90px}}
+@media(max-width:600px){.topbar nav{justify-content:flex-start}.topbar nav a{font-size:12px;padding:8px 12px}.topbar{padding-left:4%;padding-right:4%}h2{font-size:35px;letter-spacing:-1.4px;margin-bottom:25px}#hero .section-inner{padding:24px 20px;grid-template-columns:minmax(0,1fr) 90px;column-gap:14px}.hero-portrait{width:90px;height:110px;grid-row:1 / 2}h1{font-size:clamp(34px,8.5vw,48px);letter-spacing:-2px}.role{grid-column:1 / -1!important;font-size:23px}#hero .career-tagline{font-size:18px}#hero .pitch{font-size:18px}.work-eligibility{gap:16px 22px}.meta-value{font-size:14px}.hero-details{gap:20px}.social-icons a{width:44px;height:44px}.skill-panel{grid-template-columns:1fr}.skill-tile{padding:22px}.skill-tile h3{font-size:23px}.tile-technologies{font-size:19px}.position-locations{grid-template-columns:1fr;gap:14px}#experience h3{font-size:26px}.position-summary,.timeline-entry ul{font-size:17px}#education strong{font-size:22px}#education .plain-list li{font-size:17px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+@media print{html,body{height:auto;overflow:visible;background:white;color:#111;font-family:Arial,sans-serif;font-size:10pt}.topbar,.section-navigation,.skip-link,.social-icons,.experience-switcher,.skills-tabs{display:none!important}main{display:block;height:auto;overflow:visible}main>section,#hero,#contact{display:block;height:auto;overflow:visible;padding:15px 0;break-inside:auto;border-color:#ccc}.section-inner,#hero .section-inner{display:block;padding:0;background:none;border:0;box-shadow:none}h1{font-size:34px;letter-spacing:-1px}h2{font-size:24px;margin-bottom:15px}h3,#experience h3{font-size:16px}.hero-portrait{float:right;width:100px;height:120px;margin:0 0 15px 20px}#hero .pitch,.tile-description,.timeline-entry ul,.position-summary,.plain-list li,.tile-technologies{color:#333!important;font-size:10pt!important}.yellow,h1 span,.career-tagline,.timeline-dates{color:#655500!important}#hero .career-tagline{font-size:12pt}.hero-details{clear:both;padding-top:10px}.skill-panel[hidden],#experience [role="tabpanel"][hidden]{display:grid!important}.skill-panel{margin-bottom:15px}.skill-tile,#experience [role="tabpanel"]{padding:12px;border-color:#ccc;break-inside:avoid;background:none;margin-bottom:12px}.position-locations span,.meta-label,.tile-description,.timeline-place{color:#444}#contact p>a{font-size:16px;color:#333}}
+
+@media(min-width:1101px){#skill-panel-1{grid-template-columns:repeat(3,minmax(0,1fr))}#skill-panel-1 .skill-tile{padding:22px}#skill-panel-1 .tile-technologies{font-size:18px}#skill-panel-1 .tile-description{font-size:16px}}
+@media(min-width:901px){#experience h2{margin-bottom:24px}.experience-switcher{margin-bottom:20px}#experience [role="tabpanel"]{padding:24px 28px}.position-summary{font-size:18px;margin:6px 0 12px}.timeline-entry ul{font-size:17px;line-height:1.6}.timeline-entry li{padding-top:3px;padding-bottom:3px}.position-locations{padding-top:14px;margin-top:18px}}
+
+@media(max-width:600px){html{scroll-padding-top:126px}.topbar{height:116px;padding-top:12px;padding-bottom:12px}.topbar nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px 4px;border-radius:25px;overflow:visible;padding:6px 10px}.topbar nav a{text-align:center;padding:7px 4px;font-size:12px}}
+
+/* Touch-first layouts for phones, tablets and short landscape screens. */
+@media(max-width:900px){
+  .topbar{padding-left:max(5%,env(safe-area-inset-left));padding-right:max(5%,env(safe-area-inset-right))}
+  .topbar nav a{min-height:44px;display:flex;align-items:center;justify-content:center}
+  main>section{min-width:0;overflow-wrap:break-word}
+  .section-inner,.skill-panel,.skill-tile{min-width:0}
+  .experience-switcher{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible;padding-bottom:0}
+  .experience-switcher button{min-width:0;padding:14px 12px;min-height:76px;overflow-wrap:anywhere}
+  .skills-tabs button{min-height:44px}
+  #contact{padding-bottom:max(70px,env(safe-area-inset-bottom))}
+  #contact p>a{font-size:30px;letter-spacing:-.5px}
+}
+@media(max-width:600px){
+  html{scroll-padding-top:144px}
+  .topbar{height:132px;padding-top:12px;padding-bottom:12px}
+  .topbar nav a{font-size:13px;padding:8px 4px}
+  .experience-switcher{grid-template-columns:1fr;gap:10px}
+  .experience-switcher button{min-height:54px;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:14px 16px}
+  .experience-switcher button span{margin:0;font-size:11px;white-space:nowrap}
+  .experience-switcher button[aria-selected="true"]::after{left:16px;right:16px}
+  .skills-tabs{display:grid;grid-template-columns:1fr 1fr}
+  .skills-tabs button{min-width:0;padding:11px 12px;text-align:center;font-size:13px}
+  .position-locations small{display:block;margin:3px 0 0}
+  .hero-details{align-items:flex-start}
+  .meta-label{font-size:11px}
+}
+@media(max-width:480px){
+  #hero .section-inner{grid-template-columns:minmax(0,1fr);padding:24px}
+  #hero .hero-portrait{grid-column:1!important;grid-row:1;width:116px;height:138px;justify-self:start;margin-bottom:22px}
+  #hero h1{grid-column:1;grid-row:2;font-size:clamp(37px,10.5vw,50px);letter-spacing:-2px;overflow-wrap:normal}
+  #hero .role{grid-row:3;font-size:22px;margin-top:2px}
+  #hero .career-tagline{margin-top:24px}
+  .hero-details{gap:22px}
+  .work-eligibility{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:18px}
+  .work-eligibility li:last-child{grid-column:1 / -1}
+  .social-icons{gap:14px}
+}
+@media(max-width:900px) and (max-height:500px){
+  .topbar{position:relative;height:auto;padding-top:10px;padding-bottom:10px}
+  html{scroll-padding-top:16px}
+}
+
+/* Availability joins the other compact recruiter details. */
+@media(min-width:1101px){.work-eligibility{gap:16px 24px}.meta-value{font-size:14px}.hero-details{gap:18px}}
+@media(max-width:480px){.work-eligibility li:last-child{grid-column:auto}.work-eligibility li{min-width:0}.meta-value{overflow-wrap:break-word}}
+
+/* Original softly floating spheres, behind the portfolio surfaces. */
+body{isolation:isolate}
+.ambient-spheres{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:radial-gradient(ellipse at 80% 20%,#33392b33,transparent 65%)}
+.sphere{position:absolute;display:block;border-radius:50%;background:radial-gradient(circle at 30% 24%,#fffbc0 0%,#fff56c 13%,#ffe600 38%,#b59b11 70%,#4b4008 100%);box-shadow:inset -25px -30px 50px #79610055,0 0 90px #ffe60012;animation:sphere-float 18s ease-in-out infinite}
+.sphere-one{width:470px;height:470px;right:4%;top:17%;opacity:.75}
+.sphere-two{width:130px;height:130px;left:43%;top:10%;filter:blur(3px);animation-delay:-7s;opacity:.65}
+.sphere-three{width:230px;height:230px;right:30%;top:78%;filter:blur(9px);animation-delay:-12s;opacity:.6}
+@keyframes sphere-float{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-35px,55px,0)}}
+/* Tint the reading surfaces enough to preserve contrast over the spheres. */
+#hero .section-inner{background:linear-gradient(125deg,#181818e6,#181818bc);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+main>section:not(#hero) .section-inner{background:#101010c9;border-radius:24px;padding:28px;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+@media(max-width:900px){.sphere-one{right:-220px;top:22%;opacity:.45}.sphere-two{left:12%;opacity:.4}.sphere-three{right:-65px;opacity:.35}main>section:not(#hero) .section-inner{padding:20px}}
+@media(prefers-reduced-motion:reduce){.sphere{animation:none}}
+@media print{.ambient-spheres{display:none}main>section:not(#hero) .section-inner{padding:0;background:none;backdrop-filter:none}#hero .section-inner{background:none;backdrop-filter:none}}
+
+/* Soft liquid colour fields inspired by the supplied reference. */
+.fluid-background{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:#101010;isolation:isolate}
+.fluid{position:absolute;display:block;width:65vw;height:70vh;min-width:420px;min-height:360px;filter:blur(65px);border-radius:45% 55% 64% 36% / 46% 37% 63% 54%;mix-blend-mode:screen;will-change:transform;animation:fluid-flow 24s ease-in-out infinite alternate}
+.fluid-yellow{right:-12%;top:-25%;background:radial-gradient(ellipse,#ffe600d9, #ffc80088 40%,transparent 72%);animation-delay:-4s}
+.fluid-orange{right:-20%;top:15%;background:radial-gradient(ellipse,#ff7400b8,#ff8d004d 42%,transparent 72%);animation-duration:29s;animation-delay:-12s}
+.fluid-pink{left:-25%;bottom:-35%;background:radial-gradient(ellipse,#f83292a8,#fb388951 43%,transparent 72%);animation-duration:27s;animation-delay:-8s}
+.fluid-blush{left:-30%;top:5%;width:50vw;height:65vh;background:radial-gradient(ellipse,#ffab007d,#ff4f694d 40%,transparent 72%);animation-duration:33s;animation-delay:-18s}
+@keyframes fluid-flow{0%{transform:translate3d(-5%,-8%,0) rotate(-18deg) scale(.95,1.1)}50%{transform:translate3d(12%,14%,0) rotate(14deg) scale(1.12,.9)}100%{transform:translate3d(-10%,24%,0) rotate(-8deg) scale(.9,1.16)}}
+@media(max-width:600px){.fluid{filter:blur(45px);opacity:.8;min-width:340px}.fluid-yellow{right:-70%;top:-12%}.fluid-orange{right:-85%;top:35%}.fluid-pink{left:-80%;bottom:-12%}.fluid-blush{left:-90%;top:12%}}
+@media(prefers-reduced-motion:reduce){.fluid{animation:none;will-change:auto}}
+@media print{.fluid-background{display:none}}
+@media(max-width:900px){.fluid{width:110vw;height:65vh;min-width:340px;opacity:.95;filter:blur(45px)}.fluid-yellow{right:-35%;top:-15%}.fluid-orange{right:-50%;top:20%}.fluid-pink{left:-45%;bottom:-20%}.fluid-blush{left:-65%;top:8%}}
+
+/* Lighter frosted surfaces let the fluid colours show through. */
+#hero .section-inner{background:linear-gradient(125deg,#ffffff19,#ffffff0c);border-color:#ffffff38;box-shadow:inset 0 1px 0 #ffffff25,0 18px 50px #00000012;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+main>section:not(#hero) .section-inner{background:linear-gradient(125deg,#ffffff14,#ffffff08);border:1px solid #ffffff24;box-shadow:inset 0 1px 0 #ffffff18;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.skill-tile,#experience [role="tabpanel"]{background:linear-gradient(135deg,#ffffff10,#ffffff05);border-color:#ffffff2e;box-shadow:inset 0 1px 0 #ffffff12}
+@media print{#hero .section-inner,main>section:not(#hero) .section-inner,.skill-tile,#experience [role="tabpanel"]{background:none;box-shadow:none;border-color:#ccc}}
+
+/* The new portrait is already cropped; retain its headroom. */
+#hero .hero-portrait{object-view-box:none;object-position:50% 0%}
+
+/* Original photograph, unchanged; only its display is fitted to the frame. */
+#hero .hero-portrait{object-view-box:none;object-fit:cover;object-position:50% 35%;filter:none}
+
+/* Closer face framing using display cropping only. */
+#hero .hero-portrait{object-view-box:inset(16% 18% 32% 18%);object-position:50% 40%}
+
+#hero .hero-portrait{object-view-box:inset(9% 10% 20% 10%);object-position:50% 35%}
+
+/* Keep all resume content readable when scripting is unavailable. */
+html:not(.js){height:auto;overflow:visible}
+html:not(.js) body{height:auto;overflow:visible}
+html:not(.js) main{display:block;height:auto;overflow:visible}
+html:not(.js) main>section{height:auto;overflow:visible}
+html:not(.js) [role="tabpanel"]{margin-bottom:20px}
+html:not(.js) .experience-switcher,html:not(.js) .skills-tabs,html:not(.js) .section-navigation{display:none}
