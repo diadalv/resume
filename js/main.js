@@ -78,6 +78,27 @@ document.documentElement.classList.add('js');
   track.setAttribute('aria-label','Resume. Use the menu or previous and next controls to navigate.');
 })();
 
+// Hamburger menu for narrow viewports.
+(() => {
+  const toggle=document.querySelector('.nav-toggle');
+  const nav=document.getElementById('primary-nav');
+  if(!toggle||!nav)return;
+  const closeNav=()=>{toggle.setAttribute('aria-expanded','false');nav.classList.remove('nav-open')};
+  toggle.addEventListener('click',()=>{
+    const open=toggle.getAttribute('aria-expanded')==='true';
+    toggle.setAttribute('aria-expanded',String(!open));
+    nav.classList.toggle('nav-open',!open);
+  });
+  nav.addEventListener('click',e=>{if(e.target.closest('a'))closeNav()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNav()});
+  document.addEventListener('click',e=>{
+    if(!nav.classList.contains('nav-open'))return;
+    if(toggle.contains(e.target)||nav.contains(e.target))return;
+    closeNav();
+  });
+  matchMedia('(min-width:901px)').addEventListener('change',closeNav);
+})();
+
 // Shared accessible keyboard behaviour for the two tab groups.
 document.querySelectorAll('[role="tablist"]').forEach(list=>{
   const tabs=[...list.querySelectorAll('[role="tab"]')];
