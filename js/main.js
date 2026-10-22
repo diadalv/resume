@@ -14,7 +14,8 @@ document.documentElement.classList.add('js');
     links.forEach(a=>{if(a.hash==='#'+panels[index].id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')});
     previous.disabled=index===0;next.disabled=index===panels.length-1;
     label.textContent=links.find(a=>a.hash==='#'+panels[index].id)?.textContent||'';
-    history.replaceState(null,'','#'+panels[index].id);
+    // Keep the address bar clean: navigate between sections without adding #section to the URL.
+    if(location.hash)history.replaceState(null,'',location.pathname+location.search);
   }
   function go(index,animate=true){
     index=Math.max(0,Math.min(panels.length-1,index));
@@ -74,6 +75,8 @@ document.documentElement.classList.add('js');
     resizeTimer=setTimeout(()=>go(active,false),150);
   });
   addEventListener('hashchange',()=>{const i=panels.findIndex(p=>'#'+p.id===location.hash);if(i>=0)go(i,false)});
+  // Skip link: move focus to the content without putting #main in the URL.
+  document.querySelector('.skip-link')?.addEventListener('click',e=>{e.preventDefault();track.focus()});
   track.tabIndex=0;
   track.setAttribute('aria-label','Resume. Use the menu or previous and next controls to navigate.');
 })();
