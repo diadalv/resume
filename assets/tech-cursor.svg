@@ -1,4 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
-<path d="M4 3v29l8-8 6 12 6-3-6-12h12Z" fill="#ffe54a" stroke="#111211" stroke-width="2" stroke-linejoin="miter"/>
-<path d="M8 11v10m0-13v1" fill="none" stroke="#111211" stroke-width="1.5"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="-16 -16 64 64">
+  <defs>
+    <radialGradient id="halo">
+      <stop offset="0" stop-color="#ffdf24" stop-opacity="0.9"/>
+      <stop offset="0.55" stop-color="#ffdf24" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#ffdf24" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="15" cy="15" r="31" fill="url(#halo)"/>
+  <path d="M8 6v16l4.5-4.5 3.5 7 3-1.5-3.5-7H22Z" fill="#000"/>
 </svg>

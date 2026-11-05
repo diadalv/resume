@@ -1,15 +1,12 @@
 document.documentElement.classList.add('js');
-(() => {
-  const sections=[...document.querySelectorAll('main > section')];
-  const links=[...document.querySelectorAll('.topbar nav a')];
-  const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
-    if(!entry.isIntersecting)return;
-    links.forEach(link=>{if(link.hash==='#'+entry.target.id)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current')});
-  }),{rootMargin:'-15% 0px -55% 0px'});
-  sections.forEach(section=>observer.observe(section));
-})();
 
-// Hamburger menu for narrow viewports.
+const languageFact = document.querySelector('.language-fact');
+languageFact?.addEventListener('click', () => {
+  const pressed = languageFact.getAttribute('aria-pressed') === 'true';
+  languageFact.setAttribute('aria-pressed', String(!pressed));
+});
+
+// Social media drawer.
 (() => {
   const toggle=document.querySelector('.nav-toggle');
   const nav=document.getElementById('primary-nav');
@@ -49,33 +46,11 @@ document.documentElement.classList.add('js');
 
 })();
 
-// Shared accessible keyboard behaviour for the two tab groups.
-document.querySelectorAll('[role="tablist"]').forEach(list=>{
-  const tabs=[...list.querySelectorAll('[role="tab"]')];
-  function select(tab,focus=false){
-    tabs.forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!selected});
-    if(focus)tab.focus();
-  }
-  const initialTab=tabs.find(t=>t.getAttribute('aria-selected')==='true')||tabs[0];
-  if(initialTab)select(initialTab);
-  tabs.forEach((tab,i)=>{
-    tab.addEventListener('click',()=>select(tab));
-    tab.addEventListener('keydown',e=>{
-      let target;
-      if(e.key==='ArrowRight')target=(i+1)%tabs.length;
-      if(e.key==='ArrowLeft')target=(i-1+tabs.length)%tabs.length;
-      if(e.key==='Home')target=0;
-      if(e.key==='End')target=tabs.length-1;
-      if(target!==undefined){e.preventDefault();select(tabs[target],true)}
-    });
-  });
-});
-
 // Enhance normal document scrolling without intercepting wheel or touch input.
 (() => {
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const hero=document.querySelector('.hero-grid');
-  const reveals=[...document.querySelectorAll('.hero-intro .intro-label,.hero-intro .intro-copy,.sticky-heading h2,.section-content > .experience-switcher,.section-content > .skills-tabs,.timeline-entry,.skill-tile,#education .plain-list li,#languages .plain-list li,#contact h2,#contact .social-icons')];
+  const reveals=[...document.querySelectorAll('.hero-intro .intro-label,.hero-intro .intro-copy,#skills-heading,.skills-logos,#contact h2,#contact .social-icons')];
   const facts=[...document.querySelectorAll('.fact')];
   let frame=0;
   let observer;
@@ -104,7 +79,7 @@ document.querySelectorAll('[role="tablist"]').forEach(list=>{
     counters.forEach((id,el)=>{cancelAnimationFrame(id);el.textContent=el.dataset.count});counters.clear();
     document.documentElement.classList.toggle('motion-ready',!reduced.matches);
     if(reduced.matches){hero.style.removeProperty('--hero-shift');return}
-    reveals.forEach((el,i)=>{el.classList.add('scroll-reveal');el.style.setProperty('--reveal-delay',`${el.matches('.plain-list li')?i%3*80:0}ms`)});
+    reveals.forEach(el => el.classList.add('scroll-reveal'));
     facts.forEach((el,i)=>{el.style.setProperty('--fact-offset',`${45+i*55}px`);el.style.setProperty('--reveal-delay',`${i*110}ms`)});
     observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
       if(!entry.isIntersecting)return;
@@ -122,7 +97,7 @@ document.querySelectorAll('[role="tablist"]').forEach(list=>{
   setup();
 })();
 
-// Dense binary rain with a soft pointer exclusion; pause when off-screen.
+// Falling digits ripple around the pointer and pause when off-screen.
 (() => {
   const canvas=document.querySelector('.binary-rain');
   if(!canvas)return;
@@ -131,9 +106,15 @@ document.querySelectorAll('[role="tablist"]').forEach(list=>{
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   let width=0,height=0,streams=[],frame=0,last=0,visible=false;
   const pointer={x:0,y:0,active:false};
+  const ripple={x:0,y:0,strength:0};
+  const rippleEnabled=matchMedia('(min-width: 701px) and (any-hover: hover)');
+  rippleEnabled.addEventListener('change',()=>{
+    pointer.active=false;
+    ripple.strength=0;
+  });
   const hero=canvas.parentElement;
   hero.addEventListener('pointermove',event=>{
-    if(event.pointerType==='touch')return;
+    if(!rippleEnabled.matches||event.pointerType==='touch')return;
     pointer.x=event.clientX;pointer.y=event.clientY;pointer.active=true;
   },{passive:true});
   hero.addEventListener('pointerleave',()=>{pointer.active=false});
@@ -149,25 +130,32 @@ document.querySelectorAll('[role="tablist"]').forEach(list=>{
   function draw(now){
     frame=0;
     if(!visible||document.hidden||reduced.matches){last=0;return}
-    if(now-last>=50){
-      const dt=last?Math.min((now-last)/1000,.1):.05;last=now;
+    if(now-last>=30){
+      const dt=last?Math.min((now-last)/1000,.1):.03;last=now;
       ctx.clearRect(0,0,width,height);
       ctx.font='13px Consolas, monospace';
       const rect=canvas.getBoundingClientRect();
+      const ease=1-Math.exp(-dt*12);
       const px=pointer.x-rect.left,py=pointer.y-rect.top;
+      if(ripple.strength<.01){
+        ripple.x=px;ripple.y=py;
+      }
+      ripple.x+=(px-ripple.x)*ease;
+      ripple.y+=(py-ripple.y)*ease;
+      ripple.strength+=((pointer.active?1:0)-ripple.strength)*ease;
       streams.forEach(stream=>{
         stream.y+=stream.speed*dt;
         if(stream.y-stream.length*18>height)stream.y=-20;
         for(let i=0;i<stream.length;i++){
           const digitY=stream.y-i*18;
-          const distance=pointer.active?Math.hypot(stream.x-px,digitY-py):Infinity;
-          // A clear 110px radius with a soft 70px edge, including over links.
-          const edge=Math.max(0,Math.min(1,(distance-110)/70));
-          const exclusion=edge*edge*(3-2*edge);
-          if(exclusion===0)continue;
-          ctx.fillStyle=`rgba(255,229,74,${(1-i/stream.length)*.95*exclusion})`;
+          const dx=stream.x-ripple.x,dy=digitY-ripple.y;
+          const distance=Math.hypot(dx,dy);
+          const falloff=Math.max(0,1-distance/150);
+          const wave=34*falloff*falloff*ripple.strength*Math.sin(distance*.075-now*.009);
+          const scale=wave/Math.max(distance,18);
+          ctx.fillStyle=`rgba(255,229,74,${(1-i/stream.length)*.95})`;
           const digit=Math.sin(stream.seed+i*23+Math.floor(now/650))>0?'1':'0';
-          ctx.fillText(digit,stream.x,stream.y-i*18);
+          ctx.fillText(digit,stream.x+dx*scale,digitY+dy*scale);
         }
       });
     }
