@@ -1,11 +1,5 @@
 document.documentElement.classList.add('js');
 
-const languageFact = document.querySelector('.language-fact');
-languageFact?.addEventListener('click', () => {
-  const pressed = languageFact.getAttribute('aria-pressed') === 'true';
-  languageFact.setAttribute('aria-pressed', String(!pressed));
-});
-
 // Social media drawer.
 (() => {
   const toggle=document.querySelector('.nav-toggle');
@@ -135,7 +129,7 @@ languageFact?.addEventListener('click', () => {
       ctx.clearRect(0,0,width,height);
       ctx.font='13px Consolas, monospace';
       const rect=canvas.getBoundingClientRect();
-      const ease=1-Math.exp(-dt*12);
+      const ease=1-Math.exp(-dt*4);
       const px=pointer.x-rect.left,py=pointer.y-rect.top;
       if(ripple.strength<.01){
         ripple.x=px;ripple.y=py;
@@ -151,7 +145,7 @@ languageFact?.addEventListener('click', () => {
           const dx=stream.x-ripple.x,dy=digitY-ripple.y;
           const distance=Math.hypot(dx,dy);
           const falloff=Math.max(0,1-distance/150);
-          const wave=34*falloff*falloff*ripple.strength*Math.sin(distance*.075-now*.009);
+          const wave=34*falloff*falloff*ripple.strength*Math.sin(distance*.075-now*.003);
           const scale=wave/Math.max(distance,18);
           ctx.fillStyle=`rgba(255,229,74,${(1-i/stream.length)*.95})`;
           const digit=Math.sin(stream.seed+i*23+Math.floor(now/650))>0?'1':'0';
@@ -233,4 +227,40 @@ languageFact?.addEventListener('click', () => {
   addEventListener('hashchange',resolveHash);
   if(document.readyState==='complete')resolveHash();
   else addEventListener('load',resolveHash,{once:true});
+})();
+
+// Ease mouse-wheel scrolling across the document; touch keeps native momentum.
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let target = scrollY, frame = 0, previous = 0;
+  function stop() {
+    cancelAnimationFrame(frame);
+    frame = 0;
+    previous = 0;
+    target = scrollY;
+  }
+  function tick(now) {
+    const dt = previous ? Math.min(now - previous, 64) : 16;
+    previous = now;
+    target = Math.max(0, Math.min(target, document.documentElement.scrollHeight - innerHeight));
+    const next = scrollY + (target - scrollY) * (1 - Math.exp(-dt / 110));
+    window.scrollTo({ top: Math.abs(target - next) < .5 ? target : next, behavior: 'instant' });
+    if (Math.abs(target - scrollY) > .5) frame = requestAnimationFrame(tick);
+    else stop();
+  }
+  addEventListener('wheel', event => {
+    if (reduced.matches || event.ctrlKey || event.metaKey || event.defaultPrevented || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+    // Allow independent scroll regions, including the navigation drawer.
+    for (let el = event.target instanceof Element ? event.target : null; el && el !== document.body; el = el.parentElement) {
+      if (/(auto|scroll)/.test(getComputedStyle(el).overflowY) && el.scrollHeight > el.clientHeight) return;
+    }
+    event.preventDefault();
+    if (!frame) target = scrollY;
+    target += event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1);
+    target = Math.max(0, Math.min(target, document.documentElement.scrollHeight - innerHeight));
+    if (!frame) frame = requestAnimationFrame(tick);
+  }, { passive: false });
+  ['touchstart', 'pointerdown', 'keydown', 'resize'].forEach(type => addEventListener(type, stop, { passive: true }));
+  document.addEventListener('click', stop, true);
+  reduced.addEventListener('change', stop);
 })();
